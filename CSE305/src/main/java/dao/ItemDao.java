@@ -10,7 +10,7 @@ import model.Employee;
 import model.Item;
 
 public class ItemDao {
-	final String DB="jdbc:mysql://localhost:3306/EzAuction3";
+	final String DB="jdbc:mysql://localhost:3306/ezauction";
 	final String URL="root";
 	final String Password="FYPEX123456";
 	
