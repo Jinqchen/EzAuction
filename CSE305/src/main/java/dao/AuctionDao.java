@@ -143,9 +143,9 @@ public class AuctionDao {
 		 * auctionID is the Auction's ID, given as method parameter
 		 * The method should return a "success" string if the update is successful, else return "failure"
 		 */
-//		/* Sample data begins */	
-//		return "success";
-//		/* Sample data ends */
+		/* Sample data begins */	
+		return "success";
+		/* Sample data ends */
 		
 		/*
 		 * INSERT INTO Bid VALUES ('23414', '325415', '2008-12-11', '12.10')
@@ -191,50 +191,11 @@ public class AuctionDao {
 //    	    }
 //		return "success";
 		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EzAuction",  "root", "lzmlzm");;
-			Statement st = con.createStatement();
-//		    String query = "SELECT * FROM Auction a, Bidby b, Post p WHERE a.uctionID = b.auctionID AND p.auctionID = a.auctionID "
-//		    		+ " AND a.AuctionID = " + auctionID  ;
-////		    		+ " ORDER BY b.BidTime DESC LIMIT 1" ;
-//		    // create the java statement
-//		 // create the java statement
-////		    Statement st = con.createStatement();
-//		      // execute the query, and get a java resultset
-//		    ResultSet rs = st.executeQuery(query);
-//		    PreparedStatement preparedStmt;
-//			if(rs.next()) {
-//				System.out.println(rs.getDate("bidTime"));
-//				query = "INSERT INTO AuctionHistory(AuctionID, ItemID, SellerID, BuyerID,EmployeeID,Date,BidingPrice)"
-//						+ " values (?,?,?,?,?,?,?)";
-				Statement cusST = conn.createStatement();
-			    int status = cusST.executeUpdate("INSERT INTO BidBy (auctionID, customerID, bidTime, bidPrice)\r\n"
-			    		+ "VALUES ('" + a.getCustomerID() + "', '" + customer.getFirstName() + "', '" + customer.getLastName() 
-			    		+ "', '" + customer.getEmail() + "', '" + customer.getAddress() + "', '" + customer.getCity() 
-			    		+ "', '" + customer.getState() + "', " + customer.getZipCode() + ", '" + customer.getTelephone() 
-			    		+ "', passwords='00000000', roles='customer')");
-			    
-			    
-			    // if 0 rows be affected
-			    if (status == 0) {
-			    	success = false;
-			    }
-			    else {
-			    	status = cusST.executeUpdate("INSERT INTO Customer(customerID, creditCardNumber, rating)\r\n"
-			    			+ "VALUES('" + customer.getCustomerID() + "', '" + customer.getCreditCard() + "', " 
-			    			+ customer.getRating() + ")");
-			    	if (status == 0)
-			    		success = false;
-			    	else
-			    		System.out.println("up to the end");
-			    }
-			    cusST.close();
-			} 
-		catch (SQLException e) {
-	    	System.out.println(e);
-	    }
-	return "success";
+//		try {
+//			Class.forName("com.mysql.jdbc.Driver");
+//			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EzAuction",  "root", "lzmlzm");;
+//			Statement st = con.createStatement();
+
 		
 		    
 	}

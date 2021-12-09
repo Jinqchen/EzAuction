@@ -166,7 +166,7 @@ public class BidDao {
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EzAuction",  "root", "lzmlzm");;
 			Statement st = con.createStatement();
 //			String query = "(SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice, i.itemName FROM Auction a, Described d, Item i, Bidby b WHERE a.auctionID = d.auctionID AND a.auctionID = b.auctionID AND d.itemID = i.itemId and i.itemName LIKE '%" + searchKeyword +"%') UNION (SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice, i.itemName FROM Auction a, Described d, Item i, Bidby b, Customer c, Person pr WHERE b.customerID = c.customerID and pr.SSN = c.customerID and a.auctionID = d.auctionID AND a.auctionID = b.auctionID AND d.itemID = i.itemId and pr.firstName LIKE '%" + searchKeyword +"%') ";
-//			ResultSet rs = st.executeQuery("SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice FROM Auction a, Described d, Item i, Bidby b WHERE a.auctionID = d.auctionID AND a.auctionID = b.auctionID AND d.itemID = i.itemId and i.itemName LIKE '%" + searchKeyword +"%'" );
+			ResultSet rs = st.executeQuery("SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice FROM Auction a, Described d, Item i, Bidby b WHERE a.auctionID = d.auctionID AND a.auctionID = b.auctionID AND d.itemID = i.itemId and i.itemName LIKE '%" + searchKeyword +"%'" );
 //			String query = "(SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice, i.itemName ,pr.firstName "
 //			+ "FROM Auction a, Described d, Item i, Bidby b ,Customer c, Person pr "
 //			+ "WHERE b.customerID = c.customerID and pr.SSN = c.customerID and a.auctionID = d.auctionID "
@@ -181,10 +181,10 @@ public class BidDao {
 //			
 //					+ "SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice, i.itemName ,pr.firstName FROM Auction a, Described d, Item i, Bidby b, Customer c, Person pr  WHERE b.customerID = c.customerID and pr.SSN = c.customerID and a.auctionID = d.auctionID  AND a.auctionID = b.auctionID AND d.itemID = i.itemId and pr.firstName LIKE '%searchkey%'"
 //			
-			ResultSet rs = st.executeQuery("SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice, i.itemName ,pr.firstName FROM Auction a, Described d, Item i, Bidby b, Customer c, Person pr WHERE b.customerID = c.customerID and pr.SSN = c.customerID and a.auctionID = d.auctionID  AND a.auctionID = b.auctionID AND d.itemID = i.itemId and i.itemName LIKE '%" + searchKeyword +"%'" );
-
-
-			ResultSet rs = st.executeQuery(query);
+//			ResultSet rs = st.executeQuery("SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice, i.itemName ,pr.firstName FROM Auction a, Described d, Item i, Bidby b, Customer c, Person pr WHERE b.customerID = c.customerID and pr.SSN = c.customerID and a.auctionID = d.auctionID  AND a.auctionID = b.auctionID AND d.itemID = i.itemId and i.itemName LIKE '%" + searchKeyword +"%'" );
+//
+//
+//			ResultSet rs = st.executeQuery(query);
 			
 			while(rs.next()) {
 				Bid bid = new Bid();
