@@ -1,8 +1,18 @@
+// Ziming Li ziming.li@stonybrook.edu
 package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import model.Login;
 
 public class LoginDao {
+	static final String DB_URL = "jdbc:mysql://localhost:3306/ezauction2";
+	static final String USER = "root";
+	static final String PASS = "lzmlzm";
 	/*
 	 * This class handles all the database operations related to login functionality
 	 */
@@ -17,15 +27,57 @@ public class LoginDao {
 		 * password, which is the password of the user, is given as method parameter
 		 * Query to verify the username and password and fetch the role of the user, must be implemented
 		 */
+		Login res = new Login();
+		res.setUsername(username);
+		res.setPassword(password);
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery("SELECT P.roles FROM Person P WHERE P.email='" 
+			+ username + "' AND P.passwords = '" + password + "'");
+			
+			if (rs.next()) {
+				String role = rs.getString("roles");
+				if (role.equals("manager")) {
+					res.setRole("manager");
+				}
+				else if (role.equals("employee")) {
+					res.setRole("customerRepresentative");
+				}
+				else if (role.equals("customer")) {
+					res.setRole("customer");
+				}
+				else {
+					res = null;
+				}
+					
+			}
+			else {
+				res = null;
+			}
+			
+			rs.close();
+		    st.close();
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		catch (Exception e2) {
+			e2.printStackTrace();
+		} 
 		
-		/*Sample data begins*/
+//		Login login = new Login();
+//		login.setRole("customer");
+//		return login;
+		
 //		Login login = new Login();
 //		login.setRole("customerRepresentative");
 //		return login;
-		/*Sample data ends*/
-		Login login = new Login();
-		login.setRole("customer");
-		return login;
+		
+//		login.setRole("manager");
+		return res;
+		
 		
 	}
 	
@@ -38,10 +90,71 @@ public class LoginDao {
 		 * Return "success" on successful insertion of a new user
 		 * Return "failure" for an unsuccessful database operation
 		 */
+		if (login.getRole().equals("manager")) {
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				Statement st = conn.createStatement();
+				int status = st.executeUpdate("UPDATE Person SET passwords='" + login.getPassword() 
+					+ "', roles='manager' WHERE email='" + login.getUsername() + "'");
+				
+				if (status != 0) {
+					return "failure";
+				}
+			    st.close();
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+			} 
+			catch (Exception e2) {
+				e2.printStackTrace();
+			} 
+		}
+		else if (login.getRole().equals("customerRepresentative")) {
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				Statement st = conn.createStatement();
+				int status = st.executeUpdate("UPDATE Person SET passwords='" + login.getPassword() 
+					+ "', roles='customerRepresentative' WHERE email='" + login.getUsername() + "'");
+				
+				if (status != 0) {
+					return "failure";
+				}
+			    st.close();
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+			} 
+			catch (Exception e2) {
+				e2.printStackTrace();
+			} 
+		}
+		else if (login.getRole().equals("customer")) {
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				Statement st = conn.createStatement();
+				int status = st.executeUpdate("UPDATE Person SET passwords='" + login.getPassword() 
+					+ "', roles='customer' WHERE email='" + login.getUsername() + "'");
+				
+				if (status != 0) {
+					return "failure";
+				}
+			    st.close();
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+			} 
+			catch (Exception e2) {
+				e2.printStackTrace();
+			} 
+		}
+		else {
+			return "failure";
+		}
 		
-		/*Sample data begins*/
 		return "success";
-		/*Sample data ends*/
 	}
 
 }
