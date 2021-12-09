@@ -1,8 +1,13 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Auction;
 import model.Bid;
 import model.Customer;
 
@@ -19,18 +24,43 @@ public class BidDao {
 		 * Query to get the bid history of an auction, indicated by auctionID, must be implemented
 		 */
 
-		/*Sample data begins*/
-		for (int i = 0; i < 10; i++) {
-			Bid bid = new Bid();
-			bid.setAuctionID(123);
-			bid.setCustomerID("123-12-1234");
-			bid.setBidTime("2008-12-11");
-			bid.setBidPrice(100);
-			bids.add(bid);			
-		}
-		/*Sample data ends*/
+//		/*Sample data begins*/
+//		for (int i = 0; i < 10; i++) {
+//			Bid bid = new Bid();
+//			bid.setAuctionID(1423);
+//			bid.setCustomerID("123-12-1234");
+//			bid.setBidTime("2008-12-11");
+//			bid.setBidPrice(100);
+//			bids.add(bid);			
+//		}
+//		/*Sample data ends*/
+//		
+//		return bids;
+
 		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EzAuction3",  "root", "password");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice" + " FROM BidBy b "
+					+ " WHERE b.auctionID = '" + auctionID + "' ");
+
+			while (rs.next()) {
+				Bid bid = new Bid();
+				bid.setAuctionID(rs.getInt("b.auctionID"));
+				bid.setCustomerID(rs.getString("b.customerID"));
+				bid.setBidTime(rs.getString("b.bidTime"));
+				bid.setBidPrice(rs.getInt("b.bidPrice"));
+				bids.add(bid);
+				/* Sample data ends */
+			}
+		} catch(Exception e){
+			System.out.println(e);
+		}	
+
 		return bids;
+		
+		
 	}
 
 	public List<Bid> getAuctionHistory(String customerID) {
@@ -44,18 +74,41 @@ public class BidDao {
 		 * Query to get the bid history of all the auctions in which a customer participated, indicated by customerID, must be implemented
 		 */
 
-		/*Sample data begins*/
-		for (int i = 0; i < 10; i++) {
-			Bid bid = new Bid();
-			bid.setAuctionID(123);
-			bid.setCustomerID("123-12-1234");
-			bid.setBidTime("2008-12-11");
-			bid.setBidPrice(100);
-			bids.add(bid);			
-		}
-		/*Sample data ends*/
+//		/*Sample data begins*/
+//		for (int i = 0; i < 10; i++) {
+//			Bid bid = new Bid();
+//			bid.setAuctionID(12355);
+//			bid.setCustomerID("123-12-1234");
+//			bid.setBidTime("2008-12-11");
+//			bid.setBidPrice(100);
+//			bids.add(bid);			
+//		}
+//		/*Sample data ends*/
+//		
+//		return bids;
 		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EzAuction3",  "root", "password");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice" + " FROM BidBy b "
+					+ " WHERE b.customerID = '" + customerID + "' ");
+
+			while (rs.next()) {
+				Bid bid = new Bid();
+				bid.setAuctionID(rs.getInt("b.auctionID"));
+				bid.setCustomerID(rs.getString("b.customerID"));
+				bid.setBidTime(rs.getString("b.bidTime"));
+				bid.setBidPrice(rs.getInt("b.bidPrice"));
+				bids.add(bid);
+				/* Sample data ends */
+			}
+		} catch(Exception e){
+			System.out.println(e);
+		}	
+
 		return bids;
+		
 	}
 
 	public Bid submitBid(String auctionID, String itemID, Float currentBid, Float maxBid, String customerID) {
@@ -74,7 +127,7 @@ public class BidDao {
 		 */
 
 		/*Sample data begins*/
-		bid.setAuctionID(123);
+		bid.setAuctionID(123777);
 		bid.setCustomerID("123-12-1234");
 		bid.setBidTime("2008-12-11");
 		bid.setBidPrice(currentBid);
@@ -94,19 +147,58 @@ public class BidDao {
 		 * Query to  produce a list of sales by item name or by customer name must be implemented
 		 * The item name or the customer name can be searched with the provided searchKeyword
 		 */
+//		/*Sample data begins*/
+//		for (int i = 0; i < 10; i++) {
+//			Bid bid = new Bid();
+//			bid.setAuctionID(123);
+//			bid.setCustomerID("123-12-1234");
+//			bid.setBidTime("2008-12-11");
+//			bid.setBidPrice(100);
+//			bids.add(bid);			
+//		}
+//		/*Sample data ends*/
+//		
+//		return bids;
 
-		/*Sample data begins*/
-		for (int i = 0; i < 10; i++) {
-			Bid bid = new Bid();
-			bid.setAuctionID(123);
-			bid.setCustomerID("123-12-1234");
-			bid.setBidTime("2008-12-11");
-			bid.setBidPrice(100);
-			bids.add(bid);			
-		}
-		/*Sample data ends*/
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EzAuction3",  "root", "password");
+			Statement st = con.createStatement();
+//			String query = "(SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice, i.itemName FROM Auction a, Described d, Item i, Bidby b WHERE a.auctionID = d.auctionID AND a.auctionID = b.auctionID AND d.itemID = i.itemId and i.itemName LIKE '%" + searchKeyword +"%') UNION (SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice, i.itemName FROM Auction a, Described d, Item i, Bidby b, Customer c, Person pr WHERE b.customerID = c.customerID and pr.SSN = c.customerID and a.auctionID = d.auctionID AND a.auctionID = b.auctionID AND d.itemID = i.itemId and pr.firstName LIKE '%" + searchKeyword +"%') ";
+//			ResultSet rs = st.executeQuery("SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice FROM Auction a, Described d, Item i, Bidby b WHERE a.auctionID = d.auctionID AND a.auctionID = b.auctionID AND d.itemID = i.itemId and i.itemName LIKE '%" + searchKeyword +"%'" );
+//			String query = "(SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice, i.itemName ,pr.firstName "
+//			+ "FROM Auction a, Described d, Item i, Bidby b ,Customer c, Person pr "
+//			+ "WHERE b.customerID = c.customerID and pr.SSN = c.customerID and a.auctionID = d.auctionID "
+//			+ " AND a.auctionID = b.auctionID AND d.itemID = i.itemId and i.itemName LIKE '%" + searchKeyword + "%') "
+//			+ " UNION "
+//			+ "(SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice, i.itemName ,pr.firstName"
+//			FROM Auction a, Described d, Item i, Bidby b, Customer c, Person pr 
+//			WHERE b.customerID = c.customerID and pr.SSN = c.customerID and a.auctionID = d.auctionID 
+//			AND a.auctionID = b.auctionID AND d.itemID = i.itemId and pr.firstName LIKE '%" + searchKeyword +"%') ";
+//			
+//			String query = " （SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice, i.itemName ,pr.firstName FROM Auction a, Described d, Item i, Bidby b ,Customer c, Person pr  WHERE b.customerID = c.customerID and pr.SSN = c.customerID and a.auctionID = d.auctionID  AND a.auctionID = b.auctionID AND d.itemID = i.itemId and i.itemName  LIKE '%" + searchKeyword +"%'" + 
+//			
+//					+ "SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice, i.itemName ,pr.firstName FROM Auction a, Described d, Item i, Bidby b, Customer c, Person pr  WHERE b.customerID = c.customerID and pr.SSN = c.customerID and a.auctionID = d.auctionID  AND a.auctionID = b.auctionID AND d.itemID = i.itemId and pr.firstName LIKE '%searchkey%'"
+//			
+			ResultSet rs = st.executeQuery("SELECT b.auctionID, b.customerID, b.bidTime, b.bidPrice, i.itemName ,pr.firstName FROM Auction a, Described d, Item i, Bidby b, Customer c, Person pr WHERE b.customerID = c.customerID and pr.SSN = c.customerID and a.auctionID = d.auctionID  AND a.auctionID = b.auctionID AND d.itemID = i.itemId and i.itemName LIKE '%" + searchKeyword +"%'" );
+
+
+			ResultSet rs = st.executeQuery(query);
+			
+			while(rs.next()) {
+				Bid bid = new Bid();
+				bid.setAuctionID(rs.getInt("b.auctionID"));
+				bid.setCustomerID(rs.getString("b.customerID"));
+				bid.setBidTime(rs.getString("b.bidTime"));
+				bid.setBidPrice(rs.getInt("b.bidPrice"));
+				bids.add(bid);
+			}
+		}catch(Exception e){
+			System.out.println(e);
+		}		
 		
 		return bids;
-	}
 
+	}
 }
