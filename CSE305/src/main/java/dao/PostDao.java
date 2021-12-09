@@ -30,7 +30,7 @@ public class PostDao {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EzAuction3",  "root", "FYPEX123456");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ezauction",  "root", "FYPEX123456");
 
 		    String query = "SELECT I.itemName, I.itemID, I.itemType, I.YearManufactured, COUNT(I.itemID) AS CopiesSold, SUM(B.bidPrice) AS Profits "
 		    		+ "FROM Auction A, Item I, BidBy B, Described D , Post P WHERE I.itemID = D.itemID AND A.AuctionID = D.AuctionID AND A.AuctionID=P.auctionID \r\n"
