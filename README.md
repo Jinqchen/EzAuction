@@ -4,6 +4,8 @@
 * Huanqing Hu huanqing.hu@stonybrook.edu
 * Ziming Li ziming.li@stonybrook.edu
 
+## DB name
+* ezauction
 ## DB account
 * 'shiyong@cs.sunysb.edu','88888888','customer'
 * 'smithd@cs.sunysb.edu','88888888','manager'
