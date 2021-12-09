@@ -11,9 +11,6 @@ import model.Customer;
 import java.util.stream.IntStream;
 
 public class CustomerDao {
-	static final String DB_URL = "jdbc:mysql://localhost:3306/ezauction2";
-	static final String USER = "root";
-	static final String PASS = "lzmlzm";
 	/*
 	 * This class handles all the database operations related to the customer table
 	 */
@@ -112,7 +109,7 @@ public class CustomerDao {
 		try {
 //			Class.forName("com.mysql.jdbc.Driver");
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Connection conn = DriverManager.getConnection(DatabaseInfo.DB_URL, DatabaseInfo.USER, DatabaseInfo.PASS);
 			Statement cusST = conn.createStatement();
 		    ResultSet cusRS = cusST.executeQuery("SELECT * FROM Customer");
 		    // Extract data from result set
@@ -172,7 +169,7 @@ public class CustomerDao {
 		Customer resCus = new Customer();
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Connection conn = DriverManager.getConnection(DatabaseInfo.DB_URL, DatabaseInfo.USER, DatabaseInfo.PASS);
 			Statement cusST = conn.createStatement();
 		    ResultSet cusRS = cusST.executeQuery("SELECT C.*, pe.*\r\n"
 		    		+ "FROM Post p, Auction a, Person pe, Customer c\r\n"
@@ -223,7 +220,7 @@ public class CustomerDao {
 		try {
 //			Class.forName("com.mysql.jdbc.Driver");
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Connection conn = DriverManager.getConnection(DatabaseInfo.DB_URL, DatabaseInfo.USER, DatabaseInfo.PASS);
 			Statement st = conn.createStatement();
 		    ResultSet rs = st.executeQuery("SELECT p.SSN, p.firstName, p.lastName, p.address, p.city, p.state, p.zipCode, p.email\r\n"
 		    		+ "		FROM Customer c, Person p\r\n"
@@ -270,7 +267,7 @@ public class CustomerDao {
 		Customer resCus = new Customer();
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Connection conn = DriverManager.getConnection(DatabaseInfo.DB_URL, DatabaseInfo.USER, DatabaseInfo.PASS);
 			Statement cusST = conn.createStatement();
 		    ResultSet cusRS = cusST.executeQuery("SELECT c.*, p.*\r\n"
 		    		+ "FROM customer c, person p\r\n"
@@ -318,7 +315,7 @@ public class CustomerDao {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Connection conn = DriverManager.getConnection(DatabaseInfo.DB_URL, DatabaseInfo.USER, DatabaseInfo.PASS);
 			Statement cusST = conn.createStatement();
 			
 			// check does employee table exists the customerID we want to delete, 
@@ -407,7 +404,7 @@ public class CustomerDao {
 		String cusID = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Connection conn = DriverManager.getConnection(DatabaseInfo.DB_URL, DatabaseInfo.USER, DatabaseInfo.PASS);
 			Statement cusST = conn.createStatement();
 		    ResultSet cusRS = cusST.executeQuery("SELECT c.customerID\r\n"
 		    		+ "FROM Customer c, Person p\r\n"
@@ -444,7 +441,7 @@ public class CustomerDao {
 		try {
 //			Class.forName("com.mysql.jdbc.Driver");
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Connection conn = DriverManager.getConnection(DatabaseInfo.DB_URL, DatabaseInfo.USER, DatabaseInfo.PASS);
 			Statement st = conn.createStatement();
 		    ResultSet rs = st.executeQuery("SELECT c.customerID, c.rating, pe.firstName, pe.lastName, pe.telephone, pe.email\r\n"
 		    		+ "FROM Customer c, Person pe\r\n"
@@ -499,7 +496,7 @@ public class CustomerDao {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Connection conn = DriverManager.getConnection(DatabaseInfo.DB_URL, DatabaseInfo.USER, DatabaseInfo.PASS);
 			Statement cusST = conn.createStatement();
 			ResultSet rs = cusST.executeQuery("SELECT * FROM Person WHERE SSN = '" + customer.getCustomerID() + "'");
 			if (!rs.next()) {
@@ -547,7 +544,7 @@ public class CustomerDao {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Connection conn = DriverManager.getConnection(DatabaseInfo.DB_URL, DatabaseInfo.USER, DatabaseInfo.PASS);
 			Statement cusST = conn.createStatement();
 			int status = cusST.executeUpdate("UPDATE Person\r\n"
 	    			+ "SET firstName='" + customer.getFirstName() + "', lastName='" + customer.getLastName() 

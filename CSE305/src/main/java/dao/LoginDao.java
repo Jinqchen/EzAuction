@@ -10,9 +10,9 @@ import java.sql.Statement;
 import model.Login;
 
 public class LoginDao {
-	static final String DB_URL = "jdbc:mysql://localhost:3306/ezauction2";
-	static final String USER = "root";
-	static final String PASS = "lzmlzm";
+//	static final String DB_URL = "jdbc:mysql://localhost:3306/ezauction";
+//	static final String USER = "root";
+//	static final String PASS = "lzmlzm";
 	/*
 	 * This class handles all the database operations related to login functionality
 	 */
@@ -27,12 +27,14 @@ public class LoginDao {
 		 * password, which is the password of the user, is given as method parameter
 		 * Query to verify the username and password and fetch the role of the user, must be implemented
 		 */
+		
+		
 		Login res = new Login();
 		res.setUsername(username);
 		res.setPassword(password);
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Connection conn = DriverManager.getConnection(DatabaseInfo.DB_URL, DatabaseInfo.USER, DatabaseInfo.PASS);
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery("SELECT P.roles FROM Person P WHERE P.email='" 
 			+ username + "' AND P.passwords = '" + password + "'");
@@ -67,6 +69,8 @@ public class LoginDao {
 			e2.printStackTrace();
 		} 
 		
+		return res;
+		
 //		Login login = new Login();
 //		login.setRole("customer");
 //		return login;
@@ -75,8 +79,13 @@ public class LoginDao {
 //		login.setRole("customerRepresentative");
 //		return login;
 		
+//		Login login = new Login();
 //		login.setRole("manager");
-		return res;
+//		return login;
+		
+		
+		
+		
 		
 		
 	}
@@ -93,7 +102,7 @@ public class LoginDao {
 		if (login.getRole().equals("manager")) {
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				Connection conn = DriverManager.getConnection(DatabaseInfo.DB_URL, DatabaseInfo.USER, DatabaseInfo.PASS);
 				Statement st = conn.createStatement();
 				int status = st.executeUpdate("UPDATE Person SET passwords='" + login.getPassword() 
 					+ "', roles='manager' WHERE email='" + login.getUsername() + "'");
@@ -113,7 +122,7 @@ public class LoginDao {
 		else if (login.getRole().equals("customerRepresentative")) {
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				Connection conn = DriverManager.getConnection(DatabaseInfo.DB_URL, DatabaseInfo.USER, DatabaseInfo.PASS);
 				Statement st = conn.createStatement();
 				int status = st.executeUpdate("UPDATE Person SET passwords='" + login.getPassword() 
 					+ "', roles='customerRepresentative' WHERE email='" + login.getUsername() + "'");
@@ -133,7 +142,7 @@ public class LoginDao {
 		else if (login.getRole().equals("customer")) {
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				Connection conn = DriverManager.getConnection(DatabaseInfo.DB_URL, DatabaseInfo.USER, DatabaseInfo.PASS);
 				Statement st = conn.createStatement();
 				int status = st.executeUpdate("UPDATE Person SET passwords='" + login.getPassword() 
 					+ "', roles='customer' WHERE email='" + login.getUsername() + "'");

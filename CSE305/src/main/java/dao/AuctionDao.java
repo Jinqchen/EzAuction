@@ -35,7 +35,7 @@ public class AuctionDao {
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EzAuction",  "root", "lzmlzm");;
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EzAuction",  "root", "lzmlzm");
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM Auction a, Described d WHERE a.auctionID = d.auctionID");
 			while(rs.next()) {
@@ -111,7 +111,7 @@ public class AuctionDao {
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EzAuction",  "root", "lzmlzm");;
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EzAuction",  "root", "lzmlzm");
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM Auction a, Described d,SuperviseBy s, Person P, Employee e"
 					+ " WHERE a.auctionID = d.auctionID AND a.auctionID = s.auctionID AND s.employeeID = e.employeeID AND p.SSN = e.employeeID AND p.email= " + employeeEmail);
@@ -255,7 +255,7 @@ public class AuctionDao {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EzAuction",  "root", "lzmlzm");;
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EzAuction",  "root", "lzmlzm");
 			Statement st = con.createStatement();
 			
 			ResultSet rs = st.executeQuery("select b.customerID, b.bidPrice, a.auctionID,i.itemId, i.itemDescription, i.itemName, i.itemType, pr.firstName,pr.lastName,a.openingBid,a.increment,a.currentHigh\r\n"

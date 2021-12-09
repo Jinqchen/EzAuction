@@ -10,9 +10,6 @@ import model.Employee;
 import model.Item;
 
 public class ItemDao {
-	final String DB="jdbc:mysql://localhost:3306/ezauction";
-	final String URL="root";
-	final String Password="FYPEX123456";
 	
 	public List<Item> getItems() {
 		
@@ -26,7 +23,7 @@ public class ItemDao {
 				
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection(DB,URL,Password);
+			Connection con = DriverManager.getConnection(DatabaseInfo.DB_URL,DatabaseInfo.USER,DatabaseInfo.PASS);
 			
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM Item");
@@ -61,7 +58,7 @@ List<Item> items = new ArrayList<Item>();
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection(DB,URL,Password);
+			Connection con = DriverManager.getConnection(DatabaseInfo.DB_URL,DatabaseInfo.USER,DatabaseInfo.PASS);
 			
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("SELECT I.itemID, I.itemName, I.itemType, COUNT(D.ItemID) as Sold ,itemDescription "
@@ -97,7 +94,7 @@ List<Item> items = new ArrayList<Item>();
 				
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection(DB,URL,Password);
+			Connection con = DriverManager.getConnection(DatabaseInfo.DB_URL,DatabaseInfo.USER,DatabaseInfo.PASS);
 			
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("SELECT I.itemID, I.itemName, I.itemType, I.itemDescription, MAX(B.bidPrice) as price FROM Auction A, Item I, BidBy B,Described D \r\n"
@@ -134,7 +131,7 @@ List<Item> items = new ArrayList<Item>();
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection(DB,URL,Password);
+			Connection con = DriverManager.getConnection(DatabaseInfo.DB_URL,DatabaseInfo.USER,DatabaseInfo.PASS);
 			
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("SELECT itemId,itemName,itemType,numCopies,itemDescription\r\n"
@@ -184,7 +181,7 @@ List<Item> items = new ArrayList<Item>();
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection(DB,URL,Password);
+			Connection con = DriverManager.getConnection(DatabaseInfo.DB_URL,DatabaseInfo.USER,DatabaseInfo.PASS);
 			
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("select p.customerID as sellerID, i.itemId,i.itemName, a.*,B.* "
@@ -233,7 +230,7 @@ List<Item> items = new ArrayList<Item>();
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection(DB,URL,Password);
+			Connection con = DriverManager.getConnection(DatabaseInfo.DB_URL,DatabaseInfo.USER,DatabaseInfo.PASS);
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("SELECT DISTINCT itemType FROM Item");
 			while (rs.next()) {
@@ -265,7 +262,7 @@ List<Item> items = new ArrayList<Item>();
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection(DB,URL,Password);
+			Connection con = DriverManager.getConnection(DatabaseInfo.DB_URL,DatabaseInfo.USER,DatabaseInfo.PASS);
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("SELECT I.itemID, I.itemDescription,I.itemType,I.itemName, A.auctionID,A.reserve,A.increment,A.closingBid FROM Item I, Auction A ,Described D,Post P "
 					+ " WHERE I.itemID = D.itemID and D.auctionID=A.auctionID AND P.auctionID=A.auctionID AND I.ItemName LIKE '%"+itemName+"%'");
@@ -313,7 +310,7 @@ List<Item> items = new ArrayList<Item>();
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection(DB,URL,Password);
+			Connection con = DriverManager.getConnection(DatabaseInfo.DB_URL,DatabaseInfo.USER,DatabaseInfo.PASS);
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("SELECT I.itemID, I.itemDescription,I.itemType,I.itemName, A.auctionID,A.reserve,A.increment,A.closingBid  FROM Item I, Auction A,Described D WHERE I.ItemType LIKE '%"+itemType+"%' AND D.ItemID=I.ItemID AND A.auctionID=D.auctionID");
 			while (rs.next()) {
@@ -355,7 +352,7 @@ List<Item> items = new ArrayList<Item>();
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection(DB,URL,Password);
+			Connection con = DriverManager.getConnection(DatabaseInfo.DB_URL,DatabaseInfo.USER,DatabaseInfo.PASS);
 			
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("SELECT I.itemID, I.itemName, I.itemType, COUNT(D.ItemID) as Sold ,itemDescription "
